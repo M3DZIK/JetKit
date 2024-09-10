@@ -10,7 +10,7 @@ kotlin {
     sourceSets {
         val androidMain by getting {
             dependencies {
-                implementation(project(":sample:shared"))
+                implementation(projects.sample.shared)
             }
         }
     }

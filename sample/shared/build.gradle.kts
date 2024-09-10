@@ -29,7 +29,7 @@ kotlin {
                 implementation(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-                api(project(":lib"))
+                api(projects.lib)
             }
         }
         val androidMain by getting {

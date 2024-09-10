@@ -15,9 +15,12 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
+    @Suppress("UnstableApiUsage")
     repositories {
         mavenCentral()
         google()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
