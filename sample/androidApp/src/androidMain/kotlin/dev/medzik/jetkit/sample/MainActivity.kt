@@ -1,4 +1,4 @@
-package com.myapplication
+package dev.medzik.jetkit.sample
 
 import MainView
 import android.os.Bundle
