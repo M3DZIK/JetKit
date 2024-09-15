@@ -7,17 +7,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.graphics.luminance
 
-object Alpha {
-    const val Normal = 1f
-    const val Subtitle = 0.6f
-    const val DisabledComponent = 0.38f
-}
+const val NormalAlpha = 1f
+const val SubtitleAlpha = 0.6f
+const val DisabledComponentAlpha = 0.38f
 
 /**
  * Returns a new [Color] with alpha multiplied by given [alpha] value.
- *
- * @param alpha the alpha value to multiple by.
- * @return A new [Color] with alpha multiplied by given [alpha] value.
  */
 fun Color.combineAlpha(alpha: Float): Color = copy(alpha = this.alpha * alpha)
 
@@ -37,13 +32,37 @@ val ColorScheme.warning: Color
     @Composable
     get() = buildContentColor(Hue.WARNING)
 
+val ColorScheme.warningContainer: Color
+    @Composable
+    get() = buildContainerColor(Hue.WARNING)
+
+val ColorScheme.onWarningContainer: Color
+    @Composable
+    get() = buildOnContainerColor(Hue.WARNING)
+
 val ColorScheme.info: Color
     @Composable
     get() = buildContentColor(Hue.INFO)
 
+val ColorScheme.infoContainer: Color
+    @Composable
+    get() = buildContainerColor(Hue.INFO)
+
+val ColorScheme.onInfoContainer: Color
+    @Composable
+    get() = buildOnContainerColor(Hue.INFO)
+
 val ColorScheme.ok: Color
     @Composable
     get() = buildContentColor(Hue.OK)
+
+val ColorScheme.okContainer: Color
+    @Composable
+    get() = buildContainerColor(Hue.OK)
+
+val ColorScheme.onOkContainer: Color
+    @Composable
+    get() = buildOnContainerColor(Hue.OK)
 
 @Composable
 private fun ColorScheme.buildContentColor(
@@ -78,30 +97,6 @@ private fun buildContentColor(
         value = lightness,
     )
 }
-
-val ColorScheme.warningContainer: Color
-    @Composable
-    get() = buildContainerColor(Hue.WARNING)
-
-val ColorScheme.onWarningContainer: Color
-    @Composable
-    get() = buildOnContainerColor(Hue.WARNING)
-
-val ColorScheme.infoContainer: Color
-    @Composable
-    get() = buildContainerColor(Hue.INFO)
-
-val ColorScheme.onInfoContainer: Color
-    @Composable
-    get() = buildOnContainerColor(Hue.INFO)
-
-val ColorScheme.okContainer: Color
-    @Composable
-    get() = buildContainerColor(Hue.OK)
-
-val ColorScheme.onOkContainer: Color
-    @Composable
-    get() = buildOnContainerColor(Hue.OK)
 
 @Composable
 private fun ColorScheme.buildContainerColor(

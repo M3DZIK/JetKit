@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import dev.medzik.jetkit.theme.Alpha
+import dev.medzik.jetkit.theme.DisabledComponentAlpha
 import dev.medzik.jetkit.theme.combineAlpha
 import dev.medzik.jetkit.theme.info
 import dev.medzik.jetkit.theme.infoContainer
@@ -54,7 +54,7 @@ fun App() {
                 }
 
                 Surface(
-                    color = MaterialTheme.colorScheme.primary.combineAlpha(Alpha.DisabledComponent),
+                    color = MaterialTheme.colorScheme.primary.combineAlpha(DisabledComponentAlpha),
                     shape = MaterialTheme.shapes.large,
                     modifier = Modifier.width(120.dp)
                 ) {
