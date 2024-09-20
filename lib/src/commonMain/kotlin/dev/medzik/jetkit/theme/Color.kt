@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 
 const val NormalAlpha = 1f
-const val SubtitleAlpha = 0.6f
+const val SubtitleAlpha = 0.7f
 const val DisabledComponentAlpha = 0.38f
 
 /**

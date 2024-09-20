@@ -1,6 +1,17 @@
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -12,6 +23,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import dev.medzik.jetkit.ui.GroupBox
+import dev.medzik.jetkit.ui.SettingsEntry
+import dev.medzik.jetkit.ui.SettingsSwitcherEntry
+import dev.medzik.jetkit.ui.Subtitle
+import dev.medzik.jetkit.ui.Title
 import ui.theme.AppTheme
 
 @Composable
@@ -21,22 +37,103 @@ fun App() {
     AppTheme(
         darkTheme = darkTheme
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text(
-                text = "Theme Switcher",
-                style = MaterialTheme.typography.titleLarge
-            )
+            item {
+                Text(
+                    text = "Theme Switcher",
+                    style = MaterialTheme.typography.titleLarge
+                )
 
-            Switch(
-                checked = darkTheme,
-                onCheckedChange = { darkTheme = it }
-            )
+                Switch(
+                    checked = darkTheme,
+                    onCheckedChange = { darkTheme = it }
+                )
+            }
 
-            ColorExample()
+            item {
+                ColorExample()
+            }
+
+            item {
+                Text(
+                    text = "GroupBox",
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                GroupBox(
+                    modifier = Modifier
+                        .padding(horizontal = 12.dp)
+                        .fillMaxWidth()
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.AccountCircle,
+                            contentDescription = null
+                        )
+
+                        Spacer(
+                            modifier = Modifier.size(12.dp)
+                        )
+
+                        Column {
+                            Title("Account")
+                            Subtitle("Manage your account")
+                        }
+                    }
+                }
+            }
+
+            item {
+                Text(
+                    text = "Settings",
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                Column(
+                    modifier = Modifier.padding(horizontal = 12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    SettingsEntry(
+                        modifier = Modifier.fillMaxWidth(),
+                        title = "Settings",
+                        subtitle = "Manage application settings",
+                        leading = {
+                            Icon(
+                                imageVector = Icons.Default.Settings,
+                                contentDescription = null
+                            )
+                        },
+                        trailing = {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                                contentDescription = null
+                            )
+                        }
+                    )
+
+                    var checked by remember { mutableStateOf(false) }
+
+                    SettingsSwitcherEntry(
+                        modifier = Modifier.fillMaxWidth(),
+                        checked = checked,
+                        onCheckedChange = { checked = it },
+                        title = "Switcher",
+                        subtitle = "Enable/Disable somethings",
+                        leading = {
+                            Icon(
+                                imageVector = Icons.Default.Check,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                }
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +22,7 @@ import dev.medzik.jetkit.theme.onWarningContainer
 import dev.medzik.jetkit.theme.warning
 import dev.medzik.jetkit.theme.warningContainer
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ColorExample() {
     Text(
@@ -28,8 +30,9 @@ fun ColorExample() {
         style = MaterialTheme.typography.titleLarge
     )
 
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Surface(
             color = MaterialTheme.colorScheme.primaryContainer,
@@ -65,8 +68,9 @@ fun ColorExample() {
         style = MaterialTheme.typography.titleLarge
     )
 
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Surface(
             color = MaterialTheme.colorScheme.primaryContainer,
@@ -134,8 +138,9 @@ fun ColorExample() {
         }
     }
 
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(
             text = "Primary",
