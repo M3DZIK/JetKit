@@ -7,21 +7,37 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 import dev.medzik.jetkit.theme.SubtitleAlpha
 import dev.medzik.jetkit.theme.combineAlpha
+import dev.medzik.jetkit.theme.largeBottom
+import dev.medzik.jetkit.theme.largeTop
 
 object GroupBoxScope
+
+inline val GroupBoxDefaultShape
+    @Composable
+    get() = MaterialTheme.shapes.large
+
+inline val GroupBoxTopShape
+    @Composable
+    get() = MaterialTheme.shapes.largeTop
+
+inline val GroupBoxBottomShape
+    @Composable
+    get() = MaterialTheme.shapes.largeBottom
 
 @Composable
 fun GroupBox(
     modifier: Modifier = Modifier,
+    shape: Shape = GroupBoxDefaultShape,
     content: @Composable GroupBoxScope.() -> Unit
 ) {
     Surface(
         modifier = modifier,
         color = MaterialTheme.colorScheme.surfaceVariant,
-        shape = MaterialTheme.shapes.large
+        shape = shape
     ) {
         Box(
             modifier = Modifier.padding(12.dp)

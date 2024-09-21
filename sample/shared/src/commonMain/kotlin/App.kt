@@ -1,4 +1,6 @@
+
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.medzik.jetkit.ui.GroupBox
+import dev.medzik.jetkit.ui.LazySettingsGroup
 import dev.medzik.jetkit.ui.SettingsEntry
 import dev.medzik.jetkit.ui.SettingsSwitcherEntry
 import dev.medzik.jetkit.ui.Subtitle
@@ -132,6 +135,57 @@ fun App() {
                             )
                         }
                     )
+                }
+            }
+
+            item {
+                Text(
+                    text = "Lazy Settings Group",
+                    style = MaterialTheme.typography.titleLarge
+                )
+
+                Box(
+                    modifier = Modifier.padding(horizontal = 12.dp)
+                ) {
+                    var checked1 by remember { mutableStateOf(true) }
+                    var checked2 by remember { mutableStateOf(true) }
+                    var checked3 by remember { mutableStateOf(true) }
+                    var checked4 by remember { mutableStateOf(true) }
+
+                    LazySettingsGroup {
+                        switcher(
+                            checked = checked1,
+                            onCheckedChange = { checked1 = it },
+                            title = "Switcher",
+                            subtitle = "Enable/Disable somethings"
+                        )
+
+                        switcher(
+                            checked = checked2,
+                            onCheckedChange = { checked2 = it },
+                            title = "Switcher",
+                            subtitle = "Enable/Disable somethings"
+                        )
+
+                        switcher(
+                            checked = checked3,
+                            onCheckedChange = { checked3 = it },
+                            title = "Switcher",
+                            subtitle = "Enable/Disable somethings"
+                        )
+
+                        switcher(
+                            checked = checked4,
+                            onCheckedChange = { checked4 = it },
+                            title = "Switcher",
+                            subtitle = "Enable/Disable somethings"
+                        )
+
+                        entry(
+                            title = "Some title",
+                            subtitle = "Some description"
+                        )
+                    }
                 }
             }
         }

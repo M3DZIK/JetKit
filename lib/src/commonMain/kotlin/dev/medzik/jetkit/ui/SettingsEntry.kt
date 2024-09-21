@@ -5,10 +5,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -18,9 +21,11 @@ fun SettingsEntry(
     subtitle: String? = null,
     leading: @Composable (() -> Unit)? = null,
     trailing: @Composable (() -> Unit)? = null,
-    onClick: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null,
+    shape: Shape = GroupBoxDefaultShape
 ) = GroupBox(
-    modifier = if (onClick != null) modifier.clickable(onClick = onClick) else modifier
+    modifier = if (onClick != null) modifier.clickable(onClick = onClick) else modifier,
+    shape = shape
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically
@@ -56,7 +61,8 @@ fun SettingsSwitcherEntry(
     title: String,
     subtitle: String? = null,
     modifier: Modifier = Modifier,
-    leading: @Composable (() -> Unit)? = null
+    leading: @Composable (() -> Unit)? = null,
+    shape: Shape = GroupBoxDefaultShape
 ) = SettingsEntry(
     title = title,
     subtitle = subtitle,
@@ -68,5 +74,77 @@ fun SettingsSwitcherEntry(
             onCheckedChange = onCheckedChange
         )
     },
-    onClick = onCheckedChange?.let { { it(!checked) } }
+    onClick = onCheckedChange?.let { { it(!checked) } },
+    shape = shape
 )
+
+class LazySettingsGroupState {
+    internal var items = mutableListOf<@Composable LazySettingsGroupState.(Shape) -> Unit>()
+
+    fun entry(
+        title: String,
+        subtitle: String? = null,
+        leading: (@Composable () -> Unit)? = null,
+        trailing: (@Composable () -> Unit)? = null,
+        onClick: (() -> Unit)? = null
+    ) = item { shape ->
+        SettingsEntry(
+            title = title,
+            subtitle = subtitle,
+            leading = leading,
+            trailing = trailing,
+            onClick = onClick,
+            shape = shape
+        )
+    }
+
+    fun switcher(
+        checked: Boolean,
+        title: String,
+        subtitle: String? = null,
+        leading: (@Composable () -> Unit)? = null,
+        onCheckedChange: ((Boolean) -> Unit)? = null
+    ) = item { shape ->
+        SettingsSwitcherEntry(
+            checked = checked,
+            title = title,
+            subtitle = subtitle,
+            leading = leading,
+            onCheckedChange = onCheckedChange,
+            shape = shape
+        )
+    }
+
+    private fun item(
+        content: @Composable LazySettingsGroupState.(Shape) -> Unit
+    ) {
+        items.add(content)
+    }
+}
+
+// TODO: better state
+@Composable
+fun LazySettingsGroup(
+    state: LazySettingsGroupState = LazySettingsGroupState(),
+    content: LazySettingsGroupState.() -> Unit
+) {
+    content(state)
+
+    Column {
+        state.items.forEachIndexed { i, item ->
+            if (i != 0) {
+                HorizontalDivider()
+            }
+
+            val shape = run {
+                when (i) {
+                    0 -> GroupBoxTopShape
+                    state.items.size - 1 -> GroupBoxBottomShape
+                    else -> RectangleShape
+                }
+            }
+
+            item(state, shape)
+        }
+    }
+}
