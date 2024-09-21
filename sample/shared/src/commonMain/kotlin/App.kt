@@ -29,6 +29,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.medzik.jetkit.ui.BasicBottomSheet
+import dev.medzik.jetkit.ui.ExpandedContent
+import dev.medzik.jetkit.ui.ExpandedContentRow
 import dev.medzik.jetkit.ui.GroupBox
 import dev.medzik.jetkit.ui.LazySettingsGroup
 import dev.medzik.jetkit.ui.LoadingButton
@@ -267,6 +269,45 @@ fun App() {
                         onClick = { loading = !loading }
                     ) {
                         Text("Log in")
+                    }
+                }
+
+                item {
+                    Text(
+                        text = "Expand",
+                        style = MaterialTheme.typography.titleLarge
+                    )
+
+                    var expandColumn by remember { mutableStateOf(false) }
+
+                    Button(
+                        onClick = { expandColumn = !expandColumn }
+                    ) {
+                        Text("Expand Column")
+                    }
+
+                    ExpandedContent(
+                        expand = expandColumn
+                    ) {
+                        Text("Some data to expand")
+                    }
+
+                    var expandRow by remember { mutableStateOf(false) }
+
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Button(
+                            onClick = { expandRow = !expandRow }
+                        ) {
+                            Text("Expand Column")
+                        }
+
+                        ExpandedContentRow(
+                            expand = expandRow
+                        ) {
+                            Text("Some data to expand")
+                        }
                     }
                 }
             }
