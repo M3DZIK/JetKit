@@ -31,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import dev.medzik.jetkit.ui.BasicBottomSheet
 import dev.medzik.jetkit.ui.GroupBox
 import dev.medzik.jetkit.ui.LazySettingsGroup
+import dev.medzik.jetkit.ui.LoadingButton
+import dev.medzik.jetkit.ui.LoadingOutlinedButton
 import dev.medzik.jetkit.ui.PickerBottomSheet
 import dev.medzik.jetkit.ui.SettingsEntry
 import dev.medzik.jetkit.ui.SettingsSwitcherEntry
@@ -238,6 +240,33 @@ fun App() {
                         onSelect = { selectedItem.value = it }
                     ) {
                         Text(it)
+                    }
+                }
+
+                item {
+                    Text(
+                        text = "Loading Button",
+                        style = MaterialTheme.typography.titleLarge
+                    )
+
+                    var loading by remember { mutableStateOf(false) }
+
+                    LoadingButton(
+                        loading = loading,
+                        onClick = { loading = !loading }
+                    ) {
+                        Text("Log in")
+                    }
+
+                    Spacer(
+                        modifier = Modifier.size(8.dp)
+                    )
+
+                    LoadingOutlinedButton(
+                        loading = loading,
+                        onClick = { loading = !loading }
+                    ) {
+                        Text("Log in")
                     }
                 }
             }
