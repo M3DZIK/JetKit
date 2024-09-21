@@ -1,5 +1,6 @@
 package dev.medzik.jetkit.ui
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -45,15 +46,20 @@ fun LoadingButton(
             },
         onClick = onClick
     ) {
-        if (loading) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .aspectRatio(1f),
-                color = MaterialTheme.colorScheme.onPrimary
-            )
-        } else {
-            content()
+        AnimatedContent(
+            targetState = loading,
+            label = "loading button transmission",
+        ) { loadingState ->
+            if (loadingState) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .aspectRatio(1f),
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            } else {
+                content()
+            }
         }
     }
 }
@@ -84,14 +90,19 @@ fun LoadingOutlinedButton(
             },
         onClick = onClick
     ) {
-        if (loading) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .aspectRatio(1f)
-            )
-        } else {
-            content()
+        AnimatedContent(
+            targetState = loading,
+            label = "loading button transmission",
+        ) { loadingState ->
+            if (loadingState) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .aspectRatio(1f)
+                )
+            } else {
+                content()
+            }
         }
     }
 }

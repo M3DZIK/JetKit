@@ -300,7 +300,7 @@ fun App() {
                         Button(
                             onClick = { expandRow = !expandRow }
                         ) {
-                            Text("Expand Column")
+                            Text("Expand Row")
                         }
 
                         ExpandedContentRow(
