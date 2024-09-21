@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
@@ -87,7 +88,7 @@ class LazySettingsGroupState {
         leading: (@Composable () -> Unit)? = null,
         trailing: (@Composable () -> Unit)? = null,
         onClick: (() -> Unit)? = null
-    ) = item { shape ->
+    ) = items.add { shape ->
         SettingsEntry(
             title = title,
             subtitle = subtitle,
@@ -104,7 +105,7 @@ class LazySettingsGroupState {
         subtitle: String? = null,
         leading: (@Composable () -> Unit)? = null,
         onCheckedChange: ((Boolean) -> Unit)? = null
-    ) = item { shape ->
+    ) = items.add { shape ->
         SettingsSwitcherEntry(
             checked = checked,
             title = title,
@@ -114,20 +115,16 @@ class LazySettingsGroupState {
             shape = shape
         )
     }
-
-    private fun item(
-        content: @Composable LazySettingsGroupState.(Shape) -> Unit
-    ) {
-        items.add(content)
-    }
 }
 
-// TODO: better state
 @Composable
 fun LazySettingsGroup(
-    state: LazySettingsGroupState = LazySettingsGroupState(),
+    state: LazySettingsGroupState = remember { LazySettingsGroupState() },
     content: LazySettingsGroupState.() -> Unit
 ) {
+    // clear current items
+    state.items.clear()
+    // add items
     content(state)
 
     Column {
