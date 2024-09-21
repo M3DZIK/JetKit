@@ -30,9 +30,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material3)
+                compileOnly(compose.runtime)
+                compileOnly(compose.foundation)
+                compileOnly(compose.material3)
+                compileOnly(libs.compose.multiplatform.navigation)
             }
         }
         val androidMain by getting
