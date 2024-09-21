@@ -69,7 +69,7 @@ android {
 
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
-    signAllPublications()
+//    signAllPublications()
     coordinates(group.toString(), "jetkit", version.toString())
 
     pom {
