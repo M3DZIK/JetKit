@@ -7,3 +7,6 @@ plugins {
     alias(libs.plugins.maven.publish) apply false
     alias(libs.plugins.dokka)
 }
+
+group = "dev.medzik"
+version = "0.0.0"

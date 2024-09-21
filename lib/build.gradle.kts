@@ -68,34 +68,33 @@ android {
 }
 
 mavenPublishing {
-//    publishToMavenCentral(SonatypeHost.DEFAULT)
-    // or when publishing to https://s01.oss.sonatype.org
-    publishToMavenCentral(SonatypeHost.S01, automaticRelease = true)
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
     signAllPublications()
-    coordinates("dev.medzik", "jetkit", "0.0.0")
+    coordinates(group.toString(), "jetkit", version.toString())
 
     pom {
-        name.set(project.name)
-        description.set("A description of what my library does.")
-        inceptionYear.set("2024")
-        url.set("https://gitlab.com/medzik/jetkit")
+        inceptionYear = "2024"
+        url = "https://gitlab.com/medzik/jetkit"
+
         licenses {
             license {
-                name.set("The Apache License, Version 2.0")
-                url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                distribution.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                name = "The Apache License, Version 2.0"
+                url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                distribution = "http://www.apache.org/licenses/LICENSE-2.0.txt"
             }
         }
+
         developers {
             developer {
-                name.set("Oskar Karpiński")
-                url.set("https://medzik.dev")
+                name = "Oskar Karpiński"
+                email = "me@medzik.dev"
             }
         }
+
         scm {
-            url.set("https://gitlab.com/medzik/jetkit")
-            connection.set("scm:git:git://gitlab.com/medzik/jetkit.git")
-            developerConnection.set("scm:git:ssh://git@gitlab.com/medzik/jetkit.git")
+            connection = "scm:git@gitlab.com:medzik/jetkit.git"
+            developerConnection = "scm:git@gitlab.com:medzik/jetkit.git"
+            url = "scm:git@gitlab.com:medzik/jetkit.git"
         }
     }
 }
