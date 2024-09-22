@@ -1,6 +1,7 @@
 image: eclipse-temurin:17-jdk
 
 variables:
+
   # ANDROID_COMPILE_SDK is the version of Android you're compiling with.
   # It should match compileSdkVersion.
   ANDROID_COMPILE_SDK: "34"
@@ -54,7 +55,3 @@ build:
   stage: build
   script:
     - ./gradlew build
-  artifacts:
-    when: always
-    reports:
-      junit: lib/build/test-results/*/TEST-*.xml
