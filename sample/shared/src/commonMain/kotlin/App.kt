@@ -2,6 +2,7 @@
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -57,30 +58,31 @@ fun App() {
                     .padding(innerPadding)
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                contentPadding = PaddingValues(12.dp)
             ) {
                 item {
                     Text(
                         text = "Theme Switcher",
                         style = MaterialTheme.typography.titleLarge
                     )
-
+                }
+                item {
                     Switch(
                         checked = darkTheme,
                         onCheckedChange = { darkTheme = it }
                     )
                 }
 
-                item {
-                    ColorExample()
-                }
+                colorExample()
 
                 item {
                     Text(
                         text = "GroupBox",
                         style = MaterialTheme.typography.titleLarge
                     )
-
+                }
+                item {
                     GroupBox(
                         modifier = Modifier
                             .padding(horizontal = 12.dp)
@@ -111,7 +113,8 @@ fun App() {
                         text = "Settings",
                         style = MaterialTheme.typography.titleLarge
                     )
-
+                }
+                item {
                     Column(
                         modifier = Modifier.padding(horizontal = 12.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -157,7 +160,8 @@ fun App() {
                         text = "Lazy Settings Group",
                         style = MaterialTheme.typography.titleLarge
                     )
-
+                }
+                item {
                     Box(
                         modifier = Modifier.padding(horizontal = 12.dp)
                     ) {
@@ -208,7 +212,8 @@ fun App() {
                         text = "Bottom Sheet",
                         style = MaterialTheme.typography.titleLarge
                     )
-
+                }
+                item {
                     val firstDialogState = rememberBottomSheetState()
 
                     Button(
@@ -250,7 +255,8 @@ fun App() {
                         text = "Loading Button",
                         style = MaterialTheme.typography.titleLarge
                     )
-
+                }
+                item {
                     var loading by remember { mutableStateOf(false) }
 
                     LoadingButton(
@@ -277,7 +283,8 @@ fun App() {
                         text = "Expand",
                         style = MaterialTheme.typography.titleLarge
                     )
-
+                }
+                item {
                     var expandColumn by remember { mutableStateOf(false) }
 
                     Button(
