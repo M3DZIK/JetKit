@@ -4,6 +4,8 @@
 
 A Jetpack Compose Utilities Library for Developing Applications.
 
+![JetKit Preview](https://res.cloudinary.com/dqhndqi7e/image/upload/v1727970428/jetkit-preview-1.png)
+
 ## Add to your project
 
 Add the jitpack repository to your settings.gradle.kts file:
