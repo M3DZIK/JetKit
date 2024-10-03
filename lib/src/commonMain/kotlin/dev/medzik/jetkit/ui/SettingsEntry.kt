@@ -1,6 +1,5 @@
 package dev.medzik.jetkit.ui
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,7 +24,8 @@ fun SettingsEntry(
     onClick: (() -> Unit)? = null,
     shape: Shape = GroupBoxDefaultShape
 ) = GroupBox(
-    modifier = if (onClick != null) modifier.clickable(onClick = onClick) else modifier,
+    modifier = modifier,
+    onClick = onClick,
     shape = shape
 ) {
     Row(

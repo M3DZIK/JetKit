@@ -1,5 +1,6 @@
 package dev.medzik.jetkit.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +33,7 @@ inline val GroupBoxBottomShape
 fun GroupBox(
     modifier: Modifier = Modifier,
     shape: Shape = GroupBoxDefaultShape,
+    onClick: (() -> Unit)? = null,
     content: @Composable GroupBoxScope.() -> Unit
 ) {
     Surface(
@@ -40,7 +42,8 @@ fun GroupBox(
         shape = shape
     ) {
         Box(
-            modifier = Modifier.padding(12.dp)
+            modifier = (if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
+                .padding(12.dp)
         ) {
             content(GroupBoxScope)
         }
