@@ -4,7 +4,7 @@
 
 A Jetpack Compose Utilities Library for Developing Applications.
 
-![JetKit Preview](https://res.cloudinary.com/dqhndqi7e/image/upload/v1727970428/jetkit-preview-1.png)
+![JetKit Preview](https://res.cloudinary.com/dqhndqi7e/image/upload/c_scale,h_780,w_360/jetkit-preview-2.jpg)
 
 ## Add to your project
 
