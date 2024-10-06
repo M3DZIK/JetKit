@@ -36,6 +36,7 @@ import dev.medzik.jetkit.ui.LazySettingsGroup
 import dev.medzik.jetkit.ui.LoadingButton
 import dev.medzik.jetkit.ui.LoadingOutlinedButton
 import dev.medzik.jetkit.ui.PickerBottomSheet
+import dev.medzik.jetkit.ui.SettingsCheckboxEntry
 import dev.medzik.jetkit.ui.SettingsEntry
 import dev.medzik.jetkit.ui.SettingsSwitcherEntry
 import dev.medzik.jetkit.ui.Subtitle
@@ -150,6 +151,20 @@ fun App() {
                                 )
                             }
                         )
+
+                        SettingsCheckboxEntry(
+                            modifier = Modifier.fillMaxWidth(),
+                            checked = checked,
+                            onCheckedChange = { checked = it },
+                            title = "Checkbox",
+                            subtitle = "Enable/Disable somethings",
+                            leading = {
+                                Icon(
+                                    imageVector = Icons.Default.Check,
+                                    contentDescription = null
+                                )
+                            }
+                        )
                     }
                 }
 
@@ -167,6 +182,7 @@ fun App() {
                         var checked2 by remember { mutableStateOf(true) }
                         var checked3 by remember { mutableStateOf(true) }
                         var checked4 by remember { mutableStateOf(true) }
+                        var checked5 by remember { mutableStateOf(true) }
 
                         LazySettingsGroup {
                             switcher(
@@ -194,6 +210,13 @@ fun App() {
                                 checked = checked4,
                                 onCheckedChange = { checked4 = it },
                                 title = "Switcher",
+                                subtitle = "Enable/Disable somethings"
+                            )
+
+                            checkbox(
+                                checked = checked5,
+                                onCheckedChange = { checked5 = it },
+                                title = "Checkbox",
                                 subtitle = "Enable/Disable somethings"
                             )
 

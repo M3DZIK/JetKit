@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
@@ -79,6 +80,30 @@ fun SettingsSwitcherEntry(
     shape = shape
 )
 
+@Composable
+fun SettingsCheckboxEntry(
+    checked: Boolean,
+    onCheckedChange: ((Boolean) -> Unit)?,
+    title: String,
+    subtitle: String? = null,
+    modifier: Modifier = Modifier,
+    leading: @Composable (() -> Unit)? = null,
+    shape: Shape = GroupBoxDefaultShape
+) = SettingsEntry(
+    title = title,
+    subtitle = subtitle,
+    modifier = modifier,
+    leading = leading,
+    trailing = {
+        Checkbox(
+            checked = checked,
+            onCheckedChange = onCheckedChange
+        )
+    },
+    onClick = onCheckedChange?.let { { it(!checked) } },
+    shape = shape
+)
+
 class LazySettingsGroupState {
     internal var items = mutableListOf<@Composable LazySettingsGroupState.(Shape) -> Unit>()
 
@@ -107,6 +132,23 @@ class LazySettingsGroupState {
         onCheckedChange: ((Boolean) -> Unit)? = null
     ) = items.add { shape ->
         SettingsSwitcherEntry(
+            checked = checked,
+            title = title,
+            subtitle = subtitle,
+            leading = leading,
+            onCheckedChange = onCheckedChange,
+            shape = shape
+        )
+    }
+
+    fun checkbox(
+        checked: Boolean,
+        title: String,
+        subtitle: String? = null,
+        leading: (@Composable () -> Unit)? = null,
+        onCheckedChange: ((Boolean) -> Unit)? = null
+    ) = items.add { shape ->
+        SettingsCheckboxEntry(
             checked = checked,
             title = title,
             subtitle = subtitle,
