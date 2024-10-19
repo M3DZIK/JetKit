@@ -1,5 +1,5 @@
 [versions]
-activity-compose = "1.9.2"
+activity-compose = "1.9.3"
 android-sdk-min = "24"
 android-sdk-target = "34"
 android-sdk-compile = "34"
