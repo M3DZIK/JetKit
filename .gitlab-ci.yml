@@ -1,7 +1,6 @@
-image: eclipse-temurin:17-jdk
+image: eclipse-temurin:21-jdk
 
 variables:
-
   # ANDROID_COMPILE_SDK is the version of Android you're compiling with.
   # It should match compileSdkVersion.
   ANDROID_COMPILE_SDK: "34"
