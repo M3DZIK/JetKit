@@ -1,108 +1,125 @@
 package dev.medzik.jetkit.ui
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.foundation.layout.RowScope
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.StartOffset
+import androidx.compose.animation.core.animate
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.DpSize
-import androidx.compose.ui.unit.toSize
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun LoadingButton(
-    loading: Boolean,
     onClick: () -> Unit,
+    loading: Boolean,
     modifier: Modifier = Modifier,
-    content: @Composable RowScope.() -> Unit
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) = Button(
+    onClick = onClick,
+    modifier = modifier,
+    enabled = enabled && !loading
 ) {
-    var buttonSize by remember { mutableStateOf(DpSize.Zero) }
-    val density = LocalDensity.current
-
-    Button(
-        modifier = modifier
-            .then(
-                if (buttonSize != DpSize.Zero) Modifier.size(buttonSize) else Modifier
-            )
-            .onSizeChanged { newSize ->
-                if (buttonSize == DpSize.Zero) {
-                    buttonSize = with(density) {
-                        newSize
-                            .toSize()
-                            .toDpSize()
-                    }
-                }
-            },
-        onClick = onClick
-    ) {
-        AnimatedContent(
-            targetState = loading,
-            label = "loading button transmission",
-        ) { loadingState ->
-            if (loadingState) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .aspectRatio(1f),
-                    color = MaterialTheme.colorScheme.onPrimary
-                )
-            } else {
-                content()
-            }
-        }
+    if (loading) {
+        LoadingIndicator(animating = true)
+    } else {
+        content()
     }
 }
 
 @Composable
 fun LoadingOutlinedButton(
-    loading: Boolean,
     onClick: () -> Unit,
+    loading: Boolean,
     modifier: Modifier = Modifier,
-    content: @Composable RowScope.() -> Unit
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) = OutlinedButton(
+    modifier = modifier,
+    onClick = onClick,
+    enabled = enabled
 ) {
-    var buttonSize by remember { mutableStateOf(DpSize.Zero) }
-    val density = LocalDensity.current
+    if (loading) {
+        LoadingIndicator(animating = true)
+    } else {
+        content()
+    }
+}
 
-    OutlinedButton(
+@Composable
+private fun LoadingDot(
+    color: Color,
+    modifier: Modifier = Modifier
+) {
+    Box(
         modifier = modifier
-            .then(
-                if (buttonSize != DpSize.Zero) Modifier.size(buttonSize) else Modifier
-            )
-            .onSizeChanged { newSize ->
-                if (buttonSize == DpSize.Zero) {
-                    buttonSize = with(density) {
-                        newSize
-                            .toSize()
-                            .toDpSize()
-                    }
+            .clip(CircleShape)
+            .background(color)
+    )
+}
+
+@Composable
+private fun LoadingIndicator(
+    animating: Boolean,
+    modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colorScheme.primary,
+    indicatorSpacing: Dp = 4.dp
+) {
+    val animatedValues =
+        List(3) { index ->
+            var animatedValue by remember(animating) { mutableFloatStateOf(0f) }
+
+            LaunchedEffect(animating) {
+                if (animating) {
+                    animate(
+                        initialValue = 8 / 2f,
+                        targetValue = -8 / 2f,
+                        animationSpec = infiniteRepeatable(
+                            animation = tween(durationMillis = 300),
+                            repeatMode = RepeatMode.Reverse,
+                            initialStartOffset = StartOffset(300 / 3 * index)
+                        )
+                    ) { value, _ -> animatedValue = value }
                 }
-            },
-        onClick = onClick
-    ) {
-        AnimatedContent(
-            targetState = loading,
-            label = "loading button transmission",
-        ) { loadingState ->
-            if (loadingState) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .aspectRatio(1f)
-                )
-            } else {
-                content()
             }
+
+            animatedValue
+        }
+
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        animatedValues.forEach { animatedValue ->
+            LoadingDot(
+                modifier = Modifier
+                    .padding(horizontal = indicatorSpacing)
+                    .width(8.dp)
+                    .aspectRatio(1f)
+                    .offset(y = animatedValue.dp),
+                color = color
+            )
         }
     }
 }
