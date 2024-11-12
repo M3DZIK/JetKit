@@ -20,7 +20,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +30,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun LoadingButton(
@@ -49,6 +53,31 @@ fun LoadingButton(
 }
 
 @Composable
+fun LoadingButton(
+    onClick: suspend () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    var loading by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+
+    LoadingButton(
+        onClick = {
+            loading = true
+            scope.launch(Dispatchers.IO) {
+                onClick()
+                loading = false
+            }
+        },
+        modifier = modifier,
+        loading = loading,
+        enabled = enabled,
+        content = content
+    )
+}
+
+@Composable
 fun LoadingOutlinedButton(
     onClick: () -> Unit,
     loading: Boolean,
@@ -65,6 +94,31 @@ fun LoadingOutlinedButton(
     } else {
         content()
     }
+}
+
+@Composable
+fun LoadingOutlinedButton(
+    onClick: suspend () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    var loading by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+
+    LoadingOutlinedButton(
+        onClick = {
+            loading = true
+            scope.launch(Dispatchers.IO) {
+                onClick()
+                loading = false
+            }
+        },
+        modifier = modifier,
+        loading = loading,
+        enabled = enabled,
+        content = content
+    )
 }
 
 @Composable
