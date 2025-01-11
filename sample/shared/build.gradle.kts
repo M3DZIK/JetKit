@@ -30,6 +30,7 @@ kotlin {
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
                 api(projects.lib)
+                implementation(libs.compose.multiplatform.navigation)
             }
         }
         val androidMain by getting {

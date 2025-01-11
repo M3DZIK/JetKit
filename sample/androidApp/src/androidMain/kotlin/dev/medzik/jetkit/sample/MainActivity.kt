@@ -1,6 +1,5 @@
 package dev.medzik.jetkit.sample
 
-import MainView
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
