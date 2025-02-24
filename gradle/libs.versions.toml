@@ -9,7 +9,7 @@ compose-navigation = "2.7.0-alpha07"
 core-ktx = "1.15.0"
 dokka = "2.0.0"
 jetbrains-compose = "1.7.0"
-kotlin = "2.1.0"
+kotlin = "2.1.10"
 maven-publish = "0.30.0"
 
 [libraries]
